@@ -7,6 +7,7 @@ import WatchConnectivity
 struct ReminderSyncEnvelope: Codable {
     let modifiedAt: Date
     let reminders: [Reminder]
+    let quietMode: QuietModeSettings
 }
 
 @MainActor

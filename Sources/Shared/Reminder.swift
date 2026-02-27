@@ -53,3 +53,42 @@ struct Reminder: Identifiable, Codable, Equatable {
         return formatter.string(from: date)
     }
 }
+
+struct QuietModeSettings: Codable, Equatable {
+    var isEnabled: Bool = false
+    var quietStartMinute: Int = 22 * 60
+    var quietEndMinute: Int = 7 * 60
+    var pauseOnWeekends: Bool = false
+
+    static let `default` = QuietModeSettings()
+}
+
+struct ReminderTemplate: Identifiable {
+    var id: String { name }
+    let name: String
+    let intervalMinutes: Int
+    let text: String
+    let startMinute: Int?
+    let endMinute: Int?
+    let weekdays: Set<Int>
+
+    func toReminder() -> Reminder {
+        Reminder(
+            text: text,
+            intervalMinutes: intervalMinutes,
+            windowStartMinute: startMinute,
+            windowEndMinute: endMinute,
+            weekdays: weekdays,
+            startDate: Calendar.current.startOfDay(for: Date()),
+            endDate: nil,
+            isEnabled: true
+        )
+    }
+
+    static let defaults: [ReminderTemplate] = [
+        ReminderTemplate(name: "🧘 Breath", intervalMinutes: 60, text: "Anulom Vilom", startMinute: 6 * 60, endMinute: 21 * 60, weekdays: Set(1...7)),
+        ReminderTemplate(name: "🚶 Walk", intervalMinutes: 45, text: "Walk break", startMinute: 8 * 60, endMinute: 20 * 60, weekdays: Set(2...6)),
+        ReminderTemplate(name: "💧 Hydrate", intervalMinutes: 30, text: "Drink water", startMinute: 8 * 60, endMinute: 22 * 60, weekdays: Set(1...7)),
+        ReminderTemplate(name: "🧍 Posture", intervalMinutes: 50, text: "Check posture", startMinute: 9 * 60, endMinute: 18 * 60, weekdays: Set(2...6))
+    ]
+}

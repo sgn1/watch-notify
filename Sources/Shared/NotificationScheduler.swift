@@ -6,7 +6,7 @@ enum NotificationScheduler {
         _ = try await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge])
     }
 
-    static func reschedule(reminders: [Reminder]) async {
+    static func reschedule(reminders: [Reminder], quietMode: QuietModeSettings) async {
         let center = UNUserNotificationCenter.current()
         center.removeAllPendingNotificationRequests()
 
@@ -15,7 +15,7 @@ enum NotificationScheduler {
 
         var requests: [UNNotificationRequest] = []
         for reminder in reminders where reminder.isEnabled {
-            let fireDates = nextFireDates(for: reminder, from: now, until: horizon, maxCount: 80)
+            let fireDates = nextFireDates(for: reminder, from: now, until: horizon, maxCount: 80, quietMode: quietMode)
             for fireDate in fireDates {
                 let content = UNMutableNotificationContent()
                 content.title = "Watch Notify"
@@ -38,7 +38,7 @@ enum NotificationScheduler {
         }
     }
 
-    private static func nextFireDates(for reminder: Reminder, from start: Date, until end: Date, maxCount: Int) -> [Date] {
+    private static func nextFireDates(for reminder: Reminder, from start: Date, until end: Date, maxCount: Int, quietMode: QuietModeSettings) -> [Date] {
         guard reminder.intervalMinutes > 0 else { return [] }
         let interval = TimeInterval(reminder.intervalMinutes * 60)
         let cal = Calendar.current
@@ -48,10 +48,8 @@ enum NotificationScheduler {
 
         var output: [Date] = []
         while date <= end, output.count < maxCount {
-            if let endDate = reminder.endDate, date > endDate {
-                break
-            }
-            if isAllowed(date: date, reminder: reminder, calendar: cal) {
+            if let endDate = reminder.endDate, date > endDate { break }
+            if isAllowed(date: date, reminder: reminder, calendar: cal, quietMode: quietMode) {
                 output.append(date)
             }
             date = date.addingTimeInterval(interval)
@@ -67,9 +65,18 @@ enum NotificationScheduler {
         return anchor.addingTimeInterval(hops * step)
     }
 
-    private static func isAllowed(date: Date, reminder: Reminder, calendar: Calendar) -> Bool {
+    private static func isAllowed(date: Date, reminder: Reminder, calendar: Calendar, quietMode: QuietModeSettings) -> Bool {
         let weekday = calendar.component(.weekday, from: date)
         guard reminder.weekdays.contains(weekday) else { return false }
+
+        if quietMode.isEnabled {
+            if quietMode.pauseOnWeekends, weekday == 1 || weekday == 7 { return false }
+            let comps = calendar.dateComponents([.hour, .minute], from: date)
+            let minute = (comps.hour ?? 0) * 60 + (comps.minute ?? 0)
+            if minuteInsideWindow(minute, start: quietMode.quietStartMinute, end: quietMode.quietEndMinute) {
+                return false
+            }
+        }
 
         guard let startMinute = reminder.windowStartMinute, let endMinute = reminder.windowEndMinute else {
             return true
@@ -77,11 +84,14 @@ enum NotificationScheduler {
 
         let comps = calendar.dateComponents([.hour, .minute], from: date)
         let minute = (comps.hour ?? 0) * 60 + (comps.minute ?? 0)
+        return minuteInsideWindow(minute, start: startMinute, end: endMinute)
+    }
 
-        if startMinute <= endMinute {
-            return minute >= startMinute && minute <= endMinute
+    private static func minuteInsideWindow(_ minute: Int, start: Int, end: Int) -> Bool {
+        if start <= end {
+            return minute >= start && minute <= end
         } else {
-            return minute >= startMinute || minute <= endMinute
+            return minute >= start || minute <= end
         }
     }
 }

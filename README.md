@@ -22,21 +22,34 @@ Examples:
 - UserNotifications for local scheduling
 - `xcodegen` project config (`project.yml`)
 
-## Generate and run
+## Install on Apple Watch (real device)
 
-1. Install xcodegen (if needed):
+1. Install Xcode + XcodeGen:
    ```bash
+   xcode-select --install
    brew install xcodegen
    ```
-2. Generate Xcode project:
+2. Generate and open the project:
    ```bash
    xcodegen generate
-   ```
-3. Open project:
-   ```bash
    open WatchNotify.xcodeproj
    ```
-4. Run on Apple Watch simulator or paired device.
+3. In Xcode, set signing:
+   - Select target **WatchNotify** → **Signing & Capabilities**
+   - Choose your Apple ID team under **Team**
+   - Keep bundle identifier unique (e.g. `com.suraj.watchnotify`)
+4. Pair your iPhone + Apple Watch and enable **Developer Mode** on the watch.
+5. In Xcode toolbar, choose your **Apple Watch** as run destination and press **Run**.
+6. On first launch, allow Notifications, then tap **Reschedule Notifications**.
+
+> If build fails with “requires a development team,” signing is not configured yet (Step 3).
+
+## Simulator run (optional)
+
+1. `xcodegen generate`
+2. `open WatchNotify.xcodeproj`
+3. Select a watchOS simulator destination
+4. Run, then test quick-add and reschedule flow
 
 ## Notes
 

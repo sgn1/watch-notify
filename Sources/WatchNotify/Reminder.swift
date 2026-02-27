@@ -8,14 +8,30 @@ struct Reminder: Identifiable, Codable, Equatable {
     var endHour: Int?
     var isEnabled: Bool = true
 
-    var descriptionLine: String {
-        let interval = intervalMinutes >= 60 && intervalMinutes % 60 == 0
-            ? "every \(intervalMinutes / 60)h"
-            : "every \(intervalMinutes)m"
-
-        if let startHour, let endHour {
-            return "\(text) • \(interval) • \(startHour):00-\(endHour):00"
+    var intervalLabel: String {
+        if intervalMinutes >= 60, intervalMinutes % 60 == 0 {
+            let hours = intervalMinutes / 60
+            return hours == 1 ? "Every 1 hour" : "Every \(hours) hours"
         }
-        return "\(text) • \(interval)"
+        return intervalMinutes == 1 ? "Every 1 minute" : "Every \(intervalMinutes) minutes"
+    }
+
+    var windowLabel: String {
+        guard let startHour, let endHour else { return "Any time" }
+        return "\(formatHour(startHour))–\(formatHour(endHour))"
+    }
+
+    var descriptionLine: String {
+        "\(intervalLabel) • \(windowLabel)"
+    }
+
+    private func formatHour(_ hour: Int) -> String {
+        let normalized = ((hour % 24) + 24) % 24
+        switch normalized {
+        case 0: return "12 AM"
+        case 12: return "12 PM"
+        case 13...23: return "\(normalized - 12) PM"
+        default: return "\(normalized) AM"
+        }
     }
 }

@@ -22,6 +22,11 @@ final class ReminderStore: ObservableObject {
         reminders.remove(atOffsets: offsets)
     }
 
+    func toggle(id: UUID, isEnabled: Bool) {
+        guard let index = reminders.firstIndex(where: { $0.id == id }) else { return }
+        reminders[index].isEnabled = isEnabled
+    }
+
     private func load() {
         do {
             let data = try Data(contentsOf: saveURL)

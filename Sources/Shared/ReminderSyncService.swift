@@ -4,17 +4,22 @@ import Foundation
 import WatchConnectivity
 #endif
 
+struct ReminderSyncEnvelope: Codable {
+    let modifiedAt: Date
+    let reminders: [Reminder]
+}
+
 @MainActor
 protocol ReminderSyncing {
-    var onReceive: (([Reminder]) -> Void)? { get set }
+    var onReceive: ((ReminderSyncEnvelope) -> Void)? { get set }
     func start()
-    func push(reminders: [Reminder])
+    func push(envelope: ReminderSyncEnvelope)
 }
 
 @MainActor
 final class ReminderSyncService: NSObject, ReminderSyncing {
     static let shared = ReminderSyncService()
-    var onReceive: (([Reminder]) -> Void)?
+    var onReceive: ((ReminderSyncEnvelope) -> Void)?
 
     private let key = "remindersData"
 
@@ -27,13 +32,13 @@ final class ReminderSyncService: NSObject, ReminderSyncing {
         #endif
     }
 
-    func push(reminders: [Reminder]) {
+    func push(envelope: ReminderSyncEnvelope) {
         #if canImport(WatchConnectivity)
         guard WCSession.isSupported() else { return }
         let session = WCSession.default
         guard session.activationState == .activated else { return }
         do {
-            let data = try JSONEncoder().encode(reminders)
+            let data = try JSONEncoder().encode(envelope)
             try? session.updateApplicationContext([key: data])
             session.transferUserInfo([key: data])
         } catch {
@@ -45,8 +50,8 @@ final class ReminderSyncService: NSObject, ReminderSyncing {
     private func consume(payload: [String: Any]) {
         guard let data = payload[key] as? Data else { return }
         do {
-            let reminders = try JSONDecoder().decode([Reminder].self, from: data)
-            onReceive?(reminders)
+            let envelope = try JSONDecoder().decode(ReminderSyncEnvelope.self, from: data)
+            onReceive?(envelope)
         } catch {
             print("Sync decode failed: \(error)")
         }

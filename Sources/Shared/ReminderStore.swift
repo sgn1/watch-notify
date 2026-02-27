@@ -5,13 +5,15 @@ final class ReminderStore: ObservableObject {
     @Published var reminders: [Reminder] = [] {
         didSet {
             guard !applyingRemoteUpdate else { return }
+            lastModifiedAt = Date()
             save()
-            sync.onSend(reminders: reminders)
+            sync.onSend(envelope: ReminderSyncEnvelope(modifiedAt: lastModifiedAt, reminders: reminders))
         }
     }
 
     private var sync: AnyReminderSync
     private var applyingRemoteUpdate = false
+    private var lastModifiedAt: Date = .distantPast
 
     private let saveURL: URL = {
         let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -21,11 +23,11 @@ final class ReminderStore: ObservableObject {
     init() {
         self.sync = AnyReminderSync(ReminderSyncService.shared)
         load()
-        self.sync.onReceive = { [weak self] incoming in
-            self?.applyIncoming(incoming)
+        self.sync.onReceive = { [weak self] envelope in
+            self?.applyIncoming(envelope)
         }
         self.sync.start()
-        self.sync.onSend(reminders: reminders)
+        self.sync.onSend(envelope: ReminderSyncEnvelope(modifiedAt: lastModifiedAt, reminders: reminders))
     }
 
     func add(_ reminder: Reminder) {
@@ -46,11 +48,13 @@ final class ReminderStore: ObservableObject {
         reminders[index].isEnabled = isEnabled
     }
 
-    private func applyIncoming(_ incoming: [Reminder]) {
-        guard incoming != reminders else { return }
+    private func applyIncoming(_ incoming: ReminderSyncEnvelope) {
+        guard incoming.modifiedAt > lastModifiedAt else { return }
+        guard incoming.reminders != reminders else { return }
         applyingRemoteUpdate = true
-        reminders = incoming
+        reminders = incoming.reminders
         applyingRemoteUpdate = false
+        lastModifiedAt = incoming.modifiedAt
         save()
     }
 
@@ -58,6 +62,7 @@ final class ReminderStore: ObservableObject {
         do {
             let data = try Data(contentsOf: saveURL)
             reminders = try JSONDecoder().decode([Reminder].self, from: data)
+            lastModifiedAt = Date()
         } catch {
             let start = Calendar.current.startOfDay(for: Date())
             reminders = [
@@ -65,6 +70,7 @@ final class ReminderStore: ObservableObject {
                 Reminder(text: "anu lol vilom", intervalMinutes: 60, windowStartMinute: nil, windowEndMinute: nil, weekdays: Set(1...7), startDate: start, endDate: nil),
                 Reminder(text: "walk", intervalMinutes: 45, windowStartMinute: 8 * 60, windowEndMinute: 20 * 60, weekdays: Set(2...6), startDate: start, endDate: nil)
             ]
+            lastModifiedAt = Date()
         }
     }
 
@@ -80,7 +86,7 @@ final class ReminderStore: ObservableObject {
 
 @MainActor
 struct AnyReminderSync {
-    var onReceive: (([Reminder]) -> Void)? {
+    var onReceive: ((ReminderSyncEnvelope) -> Void)? {
         didSet { base.onReceive = onReceive }
     }
 
@@ -91,5 +97,5 @@ struct AnyReminderSync {
     }
 
     func start() { base.start() }
-    func onSend(reminders: [Reminder]) { base.push(reminders: reminders) }
+    func onSend(envelope: ReminderSyncEnvelope) { base.push(envelope: envelope) }
 }

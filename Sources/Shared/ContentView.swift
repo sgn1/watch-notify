@@ -1,5 +1,12 @@
 import SwiftUI
 
+private enum CalmTheme {
+    static let top = Color(red: 0.90, green: 0.96, blue: 0.98)
+    static let mid = Color(red: 0.85, green: 0.92, blue: 0.95)
+    static let bottom = Color(red: 0.81, green: 0.89, blue: 0.93)
+    static let accent = Color(red: 0.23, green: 0.52, blue: 0.67)
+}
+
 struct ContentView: View {
     @EnvironmentObject private var store: ReminderStore
     @State private var quickAddText: String = ""
@@ -8,7 +15,15 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
+            ZStack {
+                LinearGradient(
+                    colors: [CalmTheme.top, CalmTheme.mid, CalmTheme.bottom],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
+
+                Form {
                 Section("Quick Add") {
                     TextField("Remind me walk every 45 minutes during daytime", text: $quickAddText)
                         .textInputAutocapitalization(.never)
@@ -79,8 +94,11 @@ struct ContentView: View {
                             .foregroundStyle(.secondary)
                     }
                 }
+                }
+                .scrollContentBackground(.hidden)
             }
             .navigationTitle("Watch Notify")
+            .tint(CalmTheme.accent)
             .sheet(isPresented: $showingNewReminder) {
                 NavigationStack {
                     ReminderEditorView(initial: nil) { newReminder in

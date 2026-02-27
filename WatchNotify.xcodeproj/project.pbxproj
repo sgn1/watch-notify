@@ -1,0 +1,438 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		169AEE91732E2DB9EFAB68EF /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551396948AF6BCCCA063ED7D /* Reminder.swift */; };
+		190A24F4DCD8C29980A16C57 /* ReminderEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6251B0AD0A189296C0EDA573 /* ReminderEditorView.swift */; };
+		23CF2D6E872FBDA505C78FBE /* ReminderSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6319F63768F11C49F503F1DB /* ReminderSyncService.swift */; };
+		2FD1E8D4AFABB660269D1980 /* NaturalLanguageParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6828BF95BE556E5E2BE152 /* NaturalLanguageParser.swift */; };
+		54C9C66FB9C0E35F27AC5486 /* ReminderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521B86901B2A0C1132BFD76F /* ReminderStore.swift */; };
+		5A23DBF58C048CFCC5084ACB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FA7D222F7CD357A151585C2 /* Assets.xcassets */; };
+		62E3B9D14D133463BA5B3370 /* ReminderSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6319F63768F11C49F503F1DB /* ReminderSyncService.swift */; };
+		7B5F295F2EEE226E74EFCE0C /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551396948AF6BCCCA063ED7D /* Reminder.swift */; };
+		7FF83790B7E874DCBB30EEB6 /* PhoneNotifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FEA2B627E2A8B75FCAA8F4 /* PhoneNotifyApp.swift */; };
+		A61A88E52437FE8BF743F780 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3574A20F4A1CF3762C027C1D /* NotificationScheduler.swift */; };
+		C107A62D0163E5432CC522CD /* WatchNotifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25EB8A106D867FFC03C631D /* WatchNotifyApp.swift */; };
+		C10AEE67F5C8EC4033833DD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D36BD24051A2F94F7D07A450 /* Assets.xcassets */; };
+		D2CDE71807B4771F737CB91B /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3574A20F4A1CF3762C027C1D /* NotificationScheduler.swift */; };
+		D80B352740CDD0520CAFEE25 /* ReminderEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6251B0AD0A189296C0EDA573 /* ReminderEditorView.swift */; };
+		DFFDD376D33B6A8ECF46A3F6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C24524FA852023943CFC85A /* ContentView.swift */; };
+		E0885445C11613DC48F13450 /* ReminderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521B86901B2A0C1132BFD76F /* ReminderStore.swift */; };
+		E5D41C72BC60F56B179ACB4C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C24524FA852023943CFC85A /* ContentView.swift */; };
+		F3E6068731472B9A72248251 /* NaturalLanguageParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6828BF95BE556E5E2BE152 /* NaturalLanguageParser.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0CD64F38C2CED119703393A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2FA7D222F7CD357A151585C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3574A20F4A1CF3762C027C1D /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
+		3C24524FA852023943CFC85A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		521B86901B2A0C1132BFD76F /* ReminderStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderStore.swift; sourceTree = "<group>"; };
+		52FEA2B627E2A8B75FCAA8F4 /* PhoneNotifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNotifyApp.swift; sourceTree = "<group>"; };
+		551396948AF6BCCCA063ED7D /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
+		6251B0AD0A189296C0EDA573 /* ReminderEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderEditorView.swift; sourceTree = "<group>"; };
+		6319F63768F11C49F503F1DB /* ReminderSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderSyncService.swift; sourceTree = "<group>"; };
+		8D1092178839491E4C26EE60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		912E0A02F6B88E4C862D24EC /* PhoneNotify.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PhoneNotify.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC6EC6B0B4D440722617BD1A /* WatchNotify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchNotify.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D36BD24051A2F94F7D07A450 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F25EB8A106D867FFC03C631D /* WatchNotifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchNotifyApp.swift; sourceTree = "<group>"; };
+		FC6828BF95BE556E5E2BE152 /* NaturalLanguageParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaturalLanguageParser.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		3F9F80FE185061B68AC780AE /* iOSApp */ = {
+			isa = PBXGroup;
+			children = (
+				2FA7D222F7CD357A151585C2 /* Assets.xcassets */,
+				0CD64F38C2CED119703393A1 /* Info.plist */,
+				52FEA2B627E2A8B75FCAA8F4 /* PhoneNotifyApp.swift */,
+			);
+			name = iOSApp;
+			path = Sources/iOSApp;
+			sourceTree = "<group>";
+		};
+		6939A5A4F751D346643C89C7 /* WatchApp */ = {
+			isa = PBXGroup;
+			children = (
+				D36BD24051A2F94F7D07A450 /* Assets.xcassets */,
+				8D1092178839491E4C26EE60 /* Info.plist */,
+				F25EB8A106D867FFC03C631D /* WatchNotifyApp.swift */,
+			);
+			name = WatchApp;
+			path = Sources/WatchApp;
+			sourceTree = "<group>";
+		};
+		83DED8C930B20440E3B3B4C3 = {
+			isa = PBXGroup;
+			children = (
+				3F9F80FE185061B68AC780AE /* iOSApp */,
+				C2DFB68E159BB25D509E8AAA /* Shared */,
+				6939A5A4F751D346643C89C7 /* WatchApp */,
+				AF45368552BC7A426886659F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AF45368552BC7A426886659F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				912E0A02F6B88E4C862D24EC /* PhoneNotify.app */,
+				CC6EC6B0B4D440722617BD1A /* WatchNotify.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C2DFB68E159BB25D509E8AAA /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				3C24524FA852023943CFC85A /* ContentView.swift */,
+				FC6828BF95BE556E5E2BE152 /* NaturalLanguageParser.swift */,
+				3574A20F4A1CF3762C027C1D /* NotificationScheduler.swift */,
+				551396948AF6BCCCA063ED7D /* Reminder.swift */,
+				6251B0AD0A189296C0EDA573 /* ReminderEditorView.swift */,
+				521B86901B2A0C1132BFD76F /* ReminderStore.swift */,
+				6319F63768F11C49F503F1DB /* ReminderSyncService.swift */,
+			);
+			name = Shared;
+			path = Sources/Shared;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		125ED36DC3EA2C5A25B1F395 /* WatchNotify */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DBBCAFCFF4AC8171B518E05C /* Build configuration list for PBXNativeTarget "WatchNotify" */;
+			buildPhases = (
+				E262D63CA43E26E7514E3DC5 /* Sources */,
+				814F7CE6A9B7E1B142CEBFF8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WatchNotify;
+			packageProductDependencies = (
+			);
+			productName = WatchNotify;
+			productReference = CC6EC6B0B4D440722617BD1A /* WatchNotify.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4AD451304895DA111170FEDE /* PhoneNotify */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B398545EA14CCC06A46A9572 /* Build configuration list for PBXNativeTarget "PhoneNotify" */;
+			buildPhases = (
+				255D720F9D2461F4B8364D2E /* Sources */,
+				E1A71E2FB1F85E8CE5B11B44 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PhoneNotify;
+			packageProductDependencies = (
+			);
+			productName = PhoneNotify;
+			productReference = 912E0A02F6B88E4C862D24EC /* PhoneNotify.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		877BE43F516C0E80AA5E886C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+			};
+			buildConfigurationList = 129E860921FE196067F5CB0B /* Build configuration list for PBXProject "WatchNotify" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 83DED8C930B20440E3B3B4C3;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4AD451304895DA111170FEDE /* PhoneNotify */,
+				125ED36DC3EA2C5A25B1F395 /* WatchNotify */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		814F7CE6A9B7E1B142CEBFF8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C10AEE67F5C8EC4033833DD2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1A71E2FB1F85E8CE5B11B44 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A23DBF58C048CFCC5084ACB /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		255D720F9D2461F4B8364D2E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5D41C72BC60F56B179ACB4C /* ContentView.swift in Sources */,
+				F3E6068731472B9A72248251 /* NaturalLanguageParser.swift in Sources */,
+				A61A88E52437FE8BF743F780 /* NotificationScheduler.swift in Sources */,
+				7FF83790B7E874DCBB30EEB6 /* PhoneNotifyApp.swift in Sources */,
+				169AEE91732E2DB9EFAB68EF /* Reminder.swift in Sources */,
+				190A24F4DCD8C29980A16C57 /* ReminderEditorView.swift in Sources */,
+				54C9C66FB9C0E35F27AC5486 /* ReminderStore.swift in Sources */,
+				23CF2D6E872FBDA505C78FBE /* ReminderSyncService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E262D63CA43E26E7514E3DC5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFFDD376D33B6A8ECF46A3F6 /* ContentView.swift in Sources */,
+				2FD1E8D4AFABB660269D1980 /* NaturalLanguageParser.swift in Sources */,
+				D2CDE71807B4771F737CB91B /* NotificationScheduler.swift in Sources */,
+				7B5F295F2EEE226E74EFCE0C /* Reminder.swift in Sources */,
+				D80B352740CDD0520CAFEE25 /* ReminderEditorView.swift in Sources */,
+				E0885445C11613DC48F13450 /* ReminderStore.swift in Sources */,
+				62E3B9D14D133463BA5B3370 /* ReminderSyncService.swift in Sources */,
+				C107A62D0163E5432CC522CD /* WatchNotifyApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0F08A848FA30B9AFCCE88881 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Sources/iOSApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sgn1.phonenotify;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		1BFD59E56BBAF45E140732E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Sources/WatchApp/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sgn1.watchnotify;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+		32E4B05F5917EA812DDE969B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+		86566DE78911EBE528565C0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Sources/iOSApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sgn1.phonenotify;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D84632515BE666575810B724 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		F1DD8B448951FE250C91D3EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Sources/WatchApp/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sgn1.watchnotify;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		129E860921FE196067F5CB0B /* Build configuration list for PBXProject "WatchNotify" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D84632515BE666575810B724 /* Debug */,
+				32E4B05F5917EA812DDE969B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B398545EA14CCC06A46A9572 /* Build configuration list for PBXNativeTarget "PhoneNotify" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				86566DE78911EBE528565C0A /* Debug */,
+				0F08A848FA30B9AFCCE88881 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DBBCAFCFF4AC8171B518E05C /* Build configuration list for PBXNativeTarget "WatchNotify" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1DD8B448951FE250C91D3EB /* Debug */,
+				1BFD59E56BBAF45E140732E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 877BE43F516C0E80AA5E886C /* Project object */;
+}

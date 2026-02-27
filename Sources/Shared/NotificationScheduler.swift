@@ -11,13 +11,12 @@ enum NotificationScheduler {
         center.removeAllPendingNotificationRequests()
 
         let now = Date()
-        let end = Calendar.current.date(byAdding: .day, value: 1, to: now) ?? now.addingTimeInterval(24 * 3600)
+        let horizon = Calendar.current.date(byAdding: .day, value: 7, to: now) ?? now.addingTimeInterval(7 * 24 * 3600)
 
         var requests: [UNNotificationRequest] = []
-
         for reminder in reminders where reminder.isEnabled {
-            let fireDates = nextFireDates(for: reminder, from: now, until: end)
-            for fireDate in fireDates.prefix(20) {
+            let fireDates = nextFireDates(for: reminder, from: now, until: horizon, maxCount: 80)
+            for fireDate in fireDates {
                 let content = UNMutableNotificationContent()
                 content.title = "Watch Notify"
                 content.body = reminder.text
@@ -30,7 +29,7 @@ enum NotificationScheduler {
             }
         }
 
-        for req in requests.prefix(64) {
+        for req in requests.sorted(by: { $0.identifier < $1.identifier }).prefix(64) {
             do {
                 try await center.add(req)
             } catch {
@@ -39,32 +38,50 @@ enum NotificationScheduler {
         }
     }
 
-    private static func nextFireDates(for reminder: Reminder, from start: Date, until end: Date) -> [Date] {
+    private static func nextFireDates(for reminder: Reminder, from start: Date, until end: Date, maxCount: Int) -> [Date] {
         guard reminder.intervalMinutes > 0 else { return [] }
         let interval = TimeInterval(reminder.intervalMinutes * 60)
+        let cal = Calendar.current
 
-        var date = start
+        let effectiveStart = max(start, reminder.startDate)
+        var date = alignedDate(from: effectiveStart, anchor: reminder.startDate, intervalMinutes: reminder.intervalMinutes)
+
         var output: [Date] = []
-
-        while date < end {
-            date = date.addingTimeInterval(interval)
-            if isWithinWindow(date: date, reminder: reminder) {
+        while date <= end, output.count < maxCount {
+            if let endDate = reminder.endDate, date > endDate {
+                break
+            }
+            if isAllowed(date: date, reminder: reminder, calendar: cal) {
                 output.append(date)
             }
+            date = date.addingTimeInterval(interval)
         }
-
         return output
     }
 
-    private static func isWithinWindow(date: Date, reminder: Reminder) -> Bool {
-        guard let startHour = reminder.startHour, let endHour = reminder.endHour else {
+    private static func alignedDate(from candidate: Date, anchor: Date, intervalMinutes: Int) -> Date {
+        let diff = candidate.timeIntervalSince(anchor)
+        if diff <= 0 { return anchor }
+        let step = Double(intervalMinutes * 60)
+        let hops = ceil(diff / step)
+        return anchor.addingTimeInterval(hops * step)
+    }
+
+    private static func isAllowed(date: Date, reminder: Reminder, calendar: Calendar) -> Bool {
+        let weekday = calendar.component(.weekday, from: date)
+        guard reminder.weekdays.contains(weekday) else { return false }
+
+        guard let startMinute = reminder.windowStartMinute, let endMinute = reminder.windowEndMinute else {
             return true
         }
 
-        let hour = Calendar.current.component(.hour, from: date)
-        if startHour <= endHour {
-            return hour >= startHour && hour < endHour
+        let comps = calendar.dateComponents([.hour, .minute], from: date)
+        let minute = (comps.hour ?? 0) * 60 + (comps.minute ?? 0)
+
+        if startMinute <= endMinute {
+            return minute >= startMinute && minute <= endMinute
+        } else {
+            return minute >= startMinute || minute <= endMinute
         }
-        return hour >= startHour || hour < endHour
     }
 }

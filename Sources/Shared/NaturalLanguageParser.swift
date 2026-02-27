@@ -6,8 +6,6 @@ enum NaturalLanguageParser {
         guard lowered.contains("remind me") else { return nil }
 
         let withoutPrefix = lowered.replacingOccurrences(of: "remind me", with: "").trimmingCharacters(in: .whitespaces)
-
-        // Split around "every"
         let parts = withoutPrefix.components(separatedBy: " every ")
         guard parts.count >= 2 else { return nil }
 
@@ -25,15 +23,23 @@ enum NaturalLanguageParser {
             return nil
         }
 
-        var startHour: Int?
-        var endHour: Int?
-
+        var startMinute: Int?
+        var endMinute: Int?
         if rest.contains("daytime") {
-            startHour = 8
-            endHour = 20
+            startMinute = 8 * 60
+            endMinute = 20 * 60
         }
 
         guard !message.isEmpty, intervalMinutes > 0 else { return nil }
-        return Reminder(text: message, intervalMinutes: intervalMinutes, startHour: startHour, endHour: endHour)
+        return Reminder(
+            text: message,
+            intervalMinutes: intervalMinutes,
+            windowStartMinute: startMinute,
+            windowEndMinute: endMinute,
+            weekdays: Set(1...7),
+            startDate: Calendar.current.startOfDay(for: Date()),
+            endDate: nil,
+            isEnabled: true
+        )
     }
 }

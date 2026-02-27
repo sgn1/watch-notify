@@ -4,6 +4,7 @@ struct ContentView: View {
     @EnvironmentObject private var store: ReminderStore
     @State private var quickAddText: String = ""
     @State private var status: String = ""
+    @State private var showingNewReminder = false
 
     var body: some View {
         NavigationStack {
@@ -12,15 +13,17 @@ struct ContentView: View {
                     TextField("Remind me walk every 45 minutes during daytime", text: $quickAddText)
                         .textInputAutocapitalization(.never)
 
-                    Button("Add Reminder") {
+                    Button("Parse & Add") {
                         addQuickReminder()
                     }
                     .buttonStyle(.borderedProminent)
                     .disabled(quickAddText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                }
 
-                    Text("Examples: jap every 15m, anu lol vilom every 1h")
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
+                Section {
+                    Button("New Reminder") {
+                        showingNewReminder = true
+                    }
                 }
 
                 Section("Reminders") {
@@ -29,20 +32,32 @@ struct ContentView: View {
                             .foregroundStyle(.secondary)
                     } else {
                         ForEach(store.reminders) { reminder in
-                            VStack(alignment: .leading, spacing: 4) {
-                                Toggle(isOn: Binding(
-                                    get: { reminder.isEnabled },
-                                    set: { store.toggle(id: reminder.id, isEnabled: $0) }
-                                )) {
-                                    Text(reminder.text)
-                                        .font(.headline)
+                            NavigationLink {
+                                ReminderEditorView(initial: reminder) { updated in
+                                    store.update(updated)
                                 }
+                            } label: {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    HStack {
+                                        Text(reminder.text)
+                                            .font(.headline)
+                                        Spacer()
+                                        Toggle("", isOn: Binding(
+                                            get: { reminder.isEnabled },
+                                            set: { store.toggle(id: reminder.id, isEnabled: $0) }
+                                        ))
+                                        .labelsHidden()
+                                    }
 
-                                Text(reminder.descriptionLine)
-                                    .font(.caption2)
-                                    .foregroundStyle(.secondary)
+                                    Text(reminder.descriptionLine)
+                                        .font(.caption2)
+                                        .foregroundStyle(.secondary)
+                                    Text(reminder.dateRangeLabel)
+                                        .font(.caption2)
+                                        .foregroundStyle(.secondary)
+                                }
+                                .padding(.vertical, 2)
                             }
-                            .padding(.vertical, 2)
                         }
                         .onDelete(perform: store.remove)
                     }
@@ -53,6 +68,8 @@ struct ContentView: View {
                         Task { await rescheduleNow() }
                     }
                     .buttonStyle(.bordered)
+                } footer: {
+                    Text("Re-applies current rules by clearing pending notifications and scheduling the next upcoming ones.")
                 }
 
                 if !status.isEmpty {
@@ -64,6 +81,13 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Watch Notify")
+            .sheet(isPresented: $showingNewReminder) {
+                NavigationStack {
+                    ReminderEditorView(initial: nil) { newReminder in
+                        store.add(newReminder)
+                    }
+                }
+            }
         }
     }
 
@@ -82,7 +106,7 @@ struct ContentView: View {
         do {
             try await NotificationScheduler.requestPermission()
             await NotificationScheduler.reschedule(reminders: store.reminders)
-            status = "Rescheduled next 24 hours"
+            status = "Rescheduled upcoming notifications"
         } catch {
             status = "Notification permission denied"
         }
